@@ -52,7 +52,7 @@ public class Book {
         this.author = author;
     }
 
-    public String getGenre(String genre) {
+    public String getGenre() {
         return genre;
     }
 
@@ -60,7 +60,7 @@ public class Book {
         this.genre = genre;
     }
 
-    public int getAvailableCopies(int availableCopies) {
+    public int getAvailableCopies() {
         return availableCopies;
     }
 
