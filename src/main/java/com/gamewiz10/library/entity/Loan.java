@@ -21,14 +21,16 @@ public class Loan {
 
     private LocalDateTime loanDate;
     private LocalDateTime returnDate;
+    private boolean returned;
 
     public Loan(){}
 
-    public Loan(Book book, User user, LocalDateTime loanDate, LocalDateTime returnDate) {
+    public Loan(Book book, User user, LocalDateTime loanDate, LocalDateTime returnDate, boolean returned) {
         this.book = book;
         this.user = user;
         this.loanDate = loanDate;
         this.returnDate = returnDate;
+        this.returned = returned;
     }
 
     public long getId() {
@@ -69,5 +71,13 @@ public class Loan {
 
     public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public boolean isReturned() {
+        return returned;
+    }
+
+    public void setReturned(boolean returned) {
+        this.returned = returned;
     }
 }

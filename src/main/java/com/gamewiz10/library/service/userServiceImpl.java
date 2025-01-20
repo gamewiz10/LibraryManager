@@ -3,9 +3,11 @@ package com.gamewiz10.library.service;
 import com.gamewiz10.library.entity.User;
 import com.gamewiz10.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class userServiceImpl implements UserService {
 
     private final UserRepository userRepository;
