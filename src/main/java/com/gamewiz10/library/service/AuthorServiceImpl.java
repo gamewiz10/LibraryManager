@@ -30,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService{
     @Override
     public Author getAuthorById(Long id) {
         return authorRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Author with ID " + id + "not found"));
+                .orElseThrow(() -> new RuntimeException("Author not found with id: " + id));
     }
 
     @Override
@@ -57,6 +57,6 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public List<Author> searchAuthorsByName(String name) {
-        return authorRepository.findNameContainingIgnoreCase(name);
+        return authorRepository.findByNameContainingIgnoreCase(name);
     }
 }

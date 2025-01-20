@@ -1,6 +1,7 @@
 package com.gamewiz10.library.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamewiz10.library.config.TestSecurityConfig;
 import com.gamewiz10.library.entity.User;
 import com.gamewiz10.library.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -8,6 +9,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -19,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
+@Import(TestSecurityConfig.class)
 public class UserControllerTest {
 
     @Autowired
@@ -90,17 +93,23 @@ public class UserControllerTest {
     @Test
     public void testExistsByUsername() throws Exception {
         when(userService.existsByUsername("user1")).thenReturn(true);
+        when(userService.existsByEmail("user1@example.com")).thenReturn(false);
 
-        mockMvc.perform(get("/api/users/exists/username/user1"))
+        mockMvc.perform(get("/api/users/exists")
+                        .param("username", "user1")
+                        .param("email", "user1@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
     }
 
     @Test
     public void testExistsByEmail() throws Exception {
+        when(userService.existsByUsername("user1")).thenReturn(false);
         when(userService.existsByEmail("user1@example.com")).thenReturn(true);
 
-        mockMvc.perform(get("/api/users/exists/email/user1@example.com"))
+        mockMvc.perform(get("/api/users/exists")
+                        .param("username", "user1")
+                        .param("email", "user1@example.com"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
     }

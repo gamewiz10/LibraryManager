@@ -1,5 +1,6 @@
 package com.gamewiz10.library.repository;
 
+import com.gamewiz10.library.config.TestSecurityConfig;
 import com.gamewiz10.library.controller.AuthorController;
 import com.gamewiz10.library.entity.Author;
 import com.gamewiz10.library.service.AuthorService;
@@ -9,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(AuthorController.class)
+@Import(TestSecurityConfig.class)
 public class AuthorRepositoryTest {
 
     @Autowired
@@ -34,7 +37,7 @@ public class AuthorRepositoryTest {
     public void testGetAllAuthors() throws Exception {
         List<Author> authors = List.of(
                 new Author("Author One", "Biography One"),
-                new Author("Author two", "Biography Two")
+                new Author("Author Two", "Biography Two")
         );
 
         when(authorService.getAllAuthors()).thenReturn(authors);
@@ -101,7 +104,7 @@ public class AuthorRepositoryTest {
                 new Author("Author Two", "Biography Two")
         );
 
-        when(authorService.searchAuthorByName("Author")).thenReturn(authors);
+        when(authorService.searchAuthorsByName("Author")).thenReturn(authors);
 
         mockMvc.perform(get("/api/authors/search?name=Author"))
                 .andExpect(status().isOk())

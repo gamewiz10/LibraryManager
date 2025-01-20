@@ -1,6 +1,7 @@
 package com.gamewiz10.library.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gamewiz10.library.config.TestSecurityConfig;
 import com.gamewiz10.library.entity.Author;
 import com.gamewiz10.library.entity.Book;
 import com.gamewiz10.library.entity.Loan;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(LoanController.class)
+@Import(TestSecurityConfig.class)
 public class LoanControllerTest {
 
     @Autowired

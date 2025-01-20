@@ -1,5 +1,6 @@
 package com.gamewiz10.library.controller;
 
+import com.gamewiz10.library.config.TestSecurityConfig;
 import com.gamewiz10.library.entity.Author;
 import com.gamewiz10.library.service.AuthorService;
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -17,8 +19,11 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
+
 
 @WebMvcTest(AuthorController.class)
+@Import(TestSecurityConfig.class)
 public class AuthorControllerTest {
 
     @Autowired
@@ -31,7 +36,7 @@ public class AuthorControllerTest {
     public void testGetAllAuthors() throws Exception {
         List<Author> authors = List.of(
                 new Author("Author One", "Biography One"),
-                new Author("Author two", "Biography Two")
+                new Author("Author Two", "Biography Two")
         );
 
         when(authorService.getAllAuthors()).thenReturn(authors);

@@ -22,6 +22,11 @@ public class AuthorController {
         return ResponseEntity.ok(authorService.createAuthor(author));
     }
 
+    @GetMapping
+    public ResponseEntity<List<Author>> getAllAuthors() {
+        return ResponseEntity.ok(authorService.getAllAuthors());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Author> getAuthorById(@PathVariable Long id){
         return ResponseEntity.ok(authorService.getAuthorById(id));
@@ -40,7 +45,7 @@ public class AuthorController {
 
     @GetMapping("/search")
     public ResponseEntity<List<Author>> searchAuthorsByName(@RequestParam String name) {
-        return ResponseEntity.ok(authorService.searchAuthorByName(name));
+        return ResponseEntity.ok(authorService.searchAuthorsByName(name));
     }
 
 
